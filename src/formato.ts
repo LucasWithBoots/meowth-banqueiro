@@ -32,6 +32,36 @@ export function linhaLancamento(l: Lancamento): string {
   return `#${l.id} · ${dataCurta(l.data)} · ${valor} · ${l.categoria} · ${l.descricao}${obs}`;
 }
 
+// O Telegram recusa mensagens com mais de 4096 caracteres. Quebra nas linhas,
+// para não cortar um lançamento no meio; só uma linha maior que o limite é
+// cortada, e por caractere, para não partir um emoji ao meio.
+export function dividirMensagem(texto: string, limite = 4000): string[] {
+  const partes: string[] = [];
+  let atual = "";
+  for (const linha of texto.split("\n")) {
+    const pedacos: string[] = [];
+    let pedaco = "";
+    for (const caractere of linha) {
+      if (pedaco.length + caractere.length > limite) {
+        pedacos.push(pedaco);
+        pedaco = "";
+      }
+      pedaco += caractere;
+    }
+    if (pedaco) pedacos.push(pedaco);
+    for (const pedaco of pedacos.length ? pedacos : [""]) {
+      if (atual && atual.length + 1 + pedaco.length > limite) {
+        partes.push(atual);
+        atual = pedaco;
+      } else {
+        atual = atual ? `${atual}\n${pedaco}` : pedaco;
+      }
+    }
+  }
+  if (atual.trim()) partes.push(atual);
+  return partes;
+}
+
 export function csv(lancamentos: Lancamento[]): string {
   const campo = (v: string | number | null) => {
     const s = v == null ? "" : String(v);

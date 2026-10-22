@@ -1,7 +1,7 @@
 import { Bot, InputFile, type Context } from "grammy";
 import { responder, type Entrada } from "./agente.ts";
 import * as db from "./db.ts";
-import { csv, hoje, linhaLancamento } from "./formato.ts";
+import { csv, dividirMensagem, hoje, linhaLancamento } from "./formato.ts";
 
 const token = process.env.TELEGRAM_BOT_TOKEN;
 if (!token) throw new Error("Falta TELEGRAM_BOT_TOKEN no .env");
@@ -93,11 +93,19 @@ bot.on("message:photo", async (ctx) => {
 async function conversar(ctx: Context, entrada: Omit<Entrada, "chatId">) {
   const chatId = ctx.chat!.id;
   await ctx.replyWithChatAction("typing");
+  let resposta: string;
   try {
-    await ctx.reply(await responder({ chatId, ...entrada }));
+    resposta = await responder({ chatId, ...entrada });
   } catch (erro) {
     console.error(erro);
     await ctx.reply("😿 Deu um nó no meu novelo aqui. Tenta de novo daqui a pouco.");
+    return;
+  }
+  // O aviso de erro acima é só para falha da IA. Se algo der errado daqui para
+  // baixo, os lançamentos já estão salvos, e pedir para tentar de novo
+  // duplicaria tudo.
+  for (const parte of dividirMensagem(resposta)) {
+    await ctx.reply(parte);
   }
 }
 
