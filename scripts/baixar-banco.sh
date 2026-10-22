@@ -4,12 +4,29 @@
 #
 # Uso: npm run banco:baixar            (salva em dados/producao.db)
 #      npm run banco:baixar -- outro.db
+#
+# Os dados do servidor ficam no .env (VM_HOST, VM_CHAVE, COOLIFY_APP; veja o
+# .env.example), fora do repositório.
 set -euo pipefail
 
-HOST=${VM_HOST:-USUARIO@IP-DA-VM}
-CHAVE=${VM_CHAVE:-$HOME/.ssh/sua-chave}
+# Lê uma variável do ambiente ou, se não houver, do .env. Só as linhas pedidas
+# são lidas: o .env não é executado.
+ler() {
+  local valor=${!1:-}
+  if [ -z "$valor" ] && [ -f .env ]; then
+    valor=$(grep -E "^$1=" .env | tail -n1 | cut -d= -f2-)
+  fi
+  if [ -z "$valor" ]; then
+    echo "Falta $1 no .env (veja o .env.example)." >&2
+    exit 1
+  fi
+  printf '%s' "${valor/#\~/$HOME}"
+}
+
+HOST=$(ler VM_HOST)
+CHAVE=$(ler VM_CHAVE)
 # Id do app no Coolify: os containers dele começam com esse nome.
-APP=${COOLIFY_APP:-ID-DO-APP}
+APP=$(ler COOLIFY_APP)
 DESTINO=${1:-dados/producao.db}
 
 mkdir -p "$(dirname "$DESTINO")"
