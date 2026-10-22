@@ -1,5 +1,5 @@
 {
-  "name": "bot-gastos",
+  "name": "meowth-banqueiro",
   "version": "1.0.0",
   "description": "Bot de Telegram que registra seus gastos e faz resumos com IA",
   "scripts": {

@@ -8,10 +8,10 @@ Pare o bot no seu computador (Ctrl+C no `npm start`). Se o mesmo token rodar em 
 
 ## 1. Subir o código para o GitHub
 
-1. Em https://github.com/new, crie um repositório **privado** chamado `bot-gastos`, sem README, sem .gitignore e sem licença (o repositório local já tem tudo).
-2. Na pasta do projeto, ligue o repositório local ao do GitHub e envie (troque `SEU-USUARIO`):
+1. Em https://github.com/new, crie um repositório **privado** chamado `meowth-banqueiro`, sem README, sem .gitignore e sem licença (o repositório local já tem tudo).
+2. Na pasta do projeto, ligue o repositório local ao do GitHub e envie:
    ```bash
-   git remote add origin git@github.com:SEU-USUARIO/bot-gastos.git
+   git remote add origin https://github.com/LucasWithBoots/meowth-banqueiro.git
    git push -u origin main
    ```
    O `.env` e a pasta `dados/` estão no `.gitignore`: o token, a chave e o banco não vão para o GitHub.
@@ -20,7 +20,7 @@ Pare o bot no seu computador (Ctrl+C no `npm start`). Se o mesmo token rodar em 
 
 O app `app-do-coolify` hoje só enxerga outros repositórios.
 
-GitHub › Settings › Applications › Installed GitHub Apps › `app-do-coolify` › Configure › Repository access › Only select repositories › adicione `bot-gastos` › Save.
+GitHub › Settings › Applications › Installed GitHub Apps › `app-do-coolify` › Configure › Repository access › Only select repositories › adicione `meowth-banqueiro` › Save.
 
 O acesso continua só de leitura.
 
@@ -28,8 +28,8 @@ O acesso continua só de leitura.
 
 Em https://seu-coolify.exemplo.com:
 
-1. Abra o projeto (pode ser o "My first project" ou um novo, "bot-gastos") › ambiente `production` › **+ New**.
-2. Escolha **Private Repository (with GitHub App)** › `app-do-coolify` › repositório `bot-gastos` › branch `main`.
+1. Abra o projeto (pode ser o "My first project" ou um novo, "meowth-banqueiro") › ambiente `production` › **+ New**.
+2. Escolha **Private Repository (with GitHub App)** › `app-do-coolify` › repositório `meowth-banqueiro` › branch `main`.
 3. Build Pack: **Dockerfile**. Continue.
 4. Na tela do app, em **General**:
    - **Domains**: apague o domínio que o Coolify sugere e deixe vazio. O bot não recebe acesso de fora.
@@ -55,7 +55,7 @@ Em **Environment Variables**, cadastre as mesmas do seu `.env`, só em runtime (
 Sem isso, o banco some a cada deploy.
 
 **Persistent Storage** › **+ Add** › Volume:
-- Name: `bot-gastos-dados`
+- Name: `meowth-banqueiro-dados`
 - Destination Path: `/app/dados`
 
 ## 6. Deploy
@@ -84,7 +84,7 @@ O SSH só aceita o seu IP atual: se der timeout, atualize a regra da porta 22 na
    ```bash
    ssh -i ~/.ssh/sua-chave USUARIO@IP-DA-VM
    ```
-3. Descubra o nome do container do bot (é o que usa a imagem do `bot-gastos`):
+3. Descubra o nome do container do bot (é o que usa a imagem do `meowth-banqueiro`):
    ```bash
    sudo docker ps --format '{{.Names}}  {{.Image}}'
    ```

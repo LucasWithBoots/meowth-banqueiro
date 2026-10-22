@@ -1,4 +1,4 @@
-# bot-gastos
+# Meowth Banqueiro
 
 Bot de Telegram só seu: você manda os gastos do jeito que falaria ("uber 50 saindo do rio") e ele registra com categoria, descrição e observação. Quando você pede, ele faz o resumo.
 
