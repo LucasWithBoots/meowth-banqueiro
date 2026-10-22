@@ -1,6 +1,6 @@
 # Meowth Banqueiro
 
-Bot de Telegram só seu: você manda os gastos do jeito que falaria ("uber 50 saindo do rio") e ele registra com categoria, descrição e observação. Quando você pede, ele faz o resumo.
+Bot de Telegram só seu: você manda os gastos e o dinheiro que entrou do jeito que falaria ("uber 50 saindo do rio", "caiu o salário, 4500") e ele registra com categoria, descrição e observação. Quando você pede, ele faz o resumo com quanto entrou, quanto saiu e o saldo.
 
 ```
 você: uber 50 reais saindo do rio
@@ -8,25 +8,28 @@ bot:  ✅ R$ 50,00 · Transporte · Uber (saindo do Rio)
 
 você: almoço 32,90 no pix e ontem mercado 230
 bot:  ✅ R$ 32,90 · Alimentação · Almoço
-      ✅ R$ 230,00 · Mercado · Mercado
+      ✅ R$ 230,00 · Mercado · Mercado · 📅 21/10
+
+você: o joão me pagou 80 do churrasco
+bot:  💰 +R$ 80,00 · Reembolso · João (churrasco)
 
 você: resumo do mês
-bot:  Outubro até agora: R$ 1.284,30 em 23 gastos
-      Mercado — R$ 512,00 (40%)
-      Transporte — R$ 310,50 (24%)
+bot:  💰 Entradas: R$ 4.880,00
+      ✅ Gastos: R$ 1.284,30
+      Saldo: R$ 3.595,70
       ...
 ```
 
-Também entende foto de nota fiscal, correções ("o uber foi 60 na verdade", "apaga o último") e perguntas ("quanto gastei com transporte essa semana?").
+Também entende foto de nota fiscal, correções ("o uber foi 60 na verdade", "apaga o último") e perguntas ("quanto gastei com transporte essa semana?", "quanto entrou esse mês?").
 
 Atalhos: `/resumo`, `/ultimos`, `/desfazer`, `/exportar` (planilha CSV com tudo).
 
 ## Como funciona
 
 - **Telegram** via [grammY](https://grammy.dev), em long polling: não precisa de domínio, HTTPS nem porta aberta.
-- **IA**: Claude (API da Anthropic). Cada mensagem vai para o modelo com cinco ferramentas (`registrar_gasto`, `resumo_gastos`, `listar_gastos`, `editar_gasto`, `apagar_gasto`). O modelo decide o que chamar; as contas do resumo são feitas no SQLite, não pela IA, então os números batem.
-- **Banco**: SQLite num arquivo (`dados/gastos.db`), com o `node:sqlite` que já vem no Node. Os valores ficam em centavos.
-- Só os chats em `CHATS_PERMITIDOS` usam o bot. Cada chat tem os gastos separados.
+- **IA**: Claude (API da Anthropic). Cada mensagem vai para o modelo com seis ferramentas (`registrar_gasto`, `registrar_entrada`, `resumo_periodo`, `listar_lancamentos`, `editar_lancamento`, `apagar_lancamento`). O modelo decide o que chamar; as contas do resumo são feitas no SQLite, não pela IA, então os números batem.
+- **Banco**: SQLite num arquivo (`dados/gastos.db`), com o `node:sqlite` que já vem no Node. Gastos e entradas ficam na tabela `lancamentos`, separados pela coluna `tipo` (`gasto` ou `entrada`). Os valores ficam em centavos (`valor_centavos`). Um banco antigo, com a tabela `gastos`, é convertido sozinho na primeira vez que o bot sobe.
+- Só os chats em `CHATS_PERMITIDOS` usam o bot. Cada chat tem os lançamentos separados.
 
 ## Rodando
 
@@ -77,7 +80,7 @@ O banco de produção é um arquivo SQLite dentro do volume do Coolify, sem port
 npm run banco:baixar
 ```
 
-A cópia vai para `dados/producao.db`. No DBeaver, abra uma conexão SQLite apontando para esse arquivo. É uma foto do momento: rode de novo para ver gastos novos, e corrija dados pelo bot, não pela cópia.
+A cópia vai para `dados/producao.db`. No DBeaver, abra uma conexão SQLite apontando para esse arquivo; os dados estão na tabela `lancamentos`. É uma foto do momento: rode de novo para ver lançamentos novos, e corrija dados pelo bot, não pela cópia.
 
 O script entra na VM por SSH, então vale a mesma regra do resto: a porta 22 só aceita o seu IP atual.
 
