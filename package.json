@@ -1,0 +1,26 @@
+{
+  "name": "bot-gastos",
+  "version": "1.0.0",
+  "description": "Bot de Telegram que registra seus gastos e faz resumos com IA",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/bot.ts",
+    "cli": "node --env-file-if-exists=.env src/cli.ts",
+    "check": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.1.0",
+    "grammy": "^1.46.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "typescript": "^7.0.2"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22.18"
+  }
+}
