@@ -28,7 +28,7 @@ export function dataCurta(data: string): string {
 
 export function linhaLancamento(l: Lancamento): string {
   const obs = l.observacao ? ` (${l.observacao})` : "";
-  const valor = l.tipo === "entrada" ? `💰 +${reais(l.valor)}` : reais(l.valor);
+  const valor = l.tipo === "entrada" ? `🪙 +${reais(l.valor)}` : `🐾 ${reais(l.valor)}`;
   return `#${l.id} · ${dataCurta(l.data)} · ${valor} · ${l.categoria} · ${l.descricao}${obs}`;
 }
 

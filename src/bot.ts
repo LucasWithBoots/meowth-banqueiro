@@ -20,21 +20,23 @@ bot.use(async (ctx, next) => {
   const id = String(ctx.chat?.id ?? "");
   if (permitidos.has(id)) return next();
   await ctx.reply(
-    `Este bot é privado.\n\nSeu chat id é ${id}. Se o bot é seu, coloque esse número em CHATS_PERMITIDOS no .env e reinicie.`,
+    `🙀 Este gato só cuida do dinheiro do dono.\n\nSeu chat id é ${id}. Se o bot é seu, coloque esse número em CHATS_PERMITIDOS no .env e reinicie.`,
   );
 });
 
-const AJUDA = `Me manda seus gastos do jeito que vier na cabeça:
+const AJUDA = `😺 Miau! Eu sou o Meowth Banqueiro e guardo cada moedinha que passa por você.
+
+🐾 Me manda seus gastos do jeito que vier na cabeça:
 • uber 50 saindo do rio
 • almoço 32,90 no pix
 • ontem mercado 230
 • (ou a foto de uma nota)
 
-E o dinheiro que entrou:
+🪙 E o dinheiro que entrou:
 • caiu o salário, 4500
 • o joão me pagou 80 do churrasco
 
-E pergunta o que quiser:
+🐱 E pergunta o que quiser:
 • resumo do mês
 • quanto gastei com transporte essa semana?
 • quanto entrou esse mês?
@@ -53,20 +55,22 @@ bot.command("resumo", (ctx) => conversar(ctx, { texto: ctx.match || "resumo do m
 bot.command("ultimos", async (ctx) => {
   const lancamentos = db.ultimosRegistrados(ctx.chat.id, 10);
   await ctx.reply(
-    lancamentos.length ? lancamentos.map(linhaLancamento).join("\n") : "Nada registrado ainda.",
+    lancamentos.length
+      ? lancamentos.map(linhaLancamento).join("\n")
+      : "🐱 Ainda não tem nada na minha patinha.",
   );
 });
 
 bot.command("desfazer", async (ctx) => {
   const [ultimo] = db.ultimosRegistrados(ctx.chat.id, 1);
-  if (!ultimo) return ctx.reply("Nada para desfazer.");
+  if (!ultimo) return ctx.reply("🐱 Nada para desfazer.");
   db.apagar(ctx.chat.id, ultimo.id);
-  await ctx.reply(`🗑️ Apagado: ${linhaLancamento(ultimo)}`);
+  await ctx.reply(`😼 Apaguei com a patinha: ${linhaLancamento(ultimo)}`);
 });
 
 bot.command("exportar", async (ctx) => {
   const lancamentos = db.todos(ctx.chat.id);
-  if (!lancamentos.length) return ctx.reply("Nada registrado ainda.");
+  if (!lancamentos.length) return ctx.reply("🐱 Ainda não tem nada na minha patinha.");
   await ctx.replyWithDocument(
     new InputFile(Buffer.from(csv(lancamentos)), `lancamentos-${hoje()}.csv`),
   );
@@ -93,7 +97,7 @@ async function conversar(ctx: Context, entrada: Omit<Entrada, "chatId">) {
     await ctx.reply(await responder({ chatId, ...entrada }));
   } catch (erro) {
     console.error(erro);
-    await ctx.reply("Deu erro aqui do meu lado 😕 Tenta de novo daqui a pouco.");
+    await ctx.reply("😿 Deu um nó no meu novelo aqui. Tenta de novo daqui a pouco.");
   }
 }
 
