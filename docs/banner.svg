@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="titulo descricao">
+  <title id="titulo">Meowth Banqueiro</title>
+  <desc id="descricao">Um gatinho de gravata-borboleta segurando uma moeda com a marca de uma patinha, ao lado do nome do bot.</desc>
+  <defs>
+    <linearGradient id="fundo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFF4DE"/>
+      <stop offset="0.55" stop-color="#FFE3EC"/>
+      <stop offset="1" stop-color="#E6E1FF"/>
+    </linearGradient>
+    <radialGradient id="ouro" cx="0.38" cy="0.32" r="0.75">
+      <stop offset="0" stop-color="#FFF3B0"/>
+      <stop offset="0.55" stop-color="#F7C948"/>
+      <stop offset="1" stop-color="#D99A1E"/>
+    </radialGradient>
+    <g id="pata">
+      <ellipse cx="0" cy="6" rx="9" ry="7.5"/>
+      <circle cx="-9" cy="-5" r="3.6"/>
+      <circle cx="-3" cy="-10" r="3.6"/>
+      <circle cx="4" cy="-10" r="3.6"/>
+      <circle cx="10" cy="-5" r="3.6"/>
+    </g>
+    <g id="moeda">
+      <circle r="22" fill="url(#ouro)" stroke="#C4860F" stroke-width="3"/>
+      <circle r="15" fill="none" stroke="#E0A92A" stroke-width="2"/>
+      <use href="#pata" transform="scale(0.7)" fill="#B9780C"/>
+    </g>
+  </defs>
+
+  <rect width="1200" height="360" rx="28" fill="url(#fundo)"/>
+
+  <!-- patinhas espalhadas no fundo -->
+  <g fill="#F2C6D3" opacity="0.55">
+    <use href="#pata" transform="translate(40 50) rotate(-20) scale(1.2)"/>
+    <use href="#pata" transform="translate(560 320) rotate(15)"/>
+    <use href="#pata" transform="translate(640 48) rotate(-10) scale(0.9)"/>
+    <use href="#pata" transform="translate(1150 60) rotate(25) scale(1.1)"/>
+  </g>
+
+  <!-- moedas caindo -->
+  <use href="#moeda" transform="translate(712 92) rotate(-12) scale(0.9)"/>
+  <use href="#moeda" transform="translate(760 270) rotate(10) scale(0.7)"/>
+  <use href="#moeda" transform="translate(1150 196) rotate(-6) scale(0.75)"/>
+  <g fill="#F7C948">
+    <path d="M690 190 l4 10 l10 4 l-10 4 l-4 10 l-4 -10 l-10 -4 l10 -4z"/>
+    <path d="M1110 160 l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3 l7 -3z"/>
+    <path d="M830 40 l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3 l7 -3z"/>
+  </g>
+
+  <!-- texto -->
+  <g font-family="ui-rounded, 'SF Pro Rounded', 'Nunito', 'Segoe UI', Helvetica, Arial, sans-serif">
+    <text x="70" y="150" font-size="72" font-weight="800" fill="#4A2E2A">Meowth</text>
+    <text x="70" y="226" font-size="72" font-weight="800" fill="#C2577A">Banqueiro</text>
+    <text x="72" y="282" font-size="25" fill="#6B4F4B">Seu gato banqueiro no Telegram: anota gastos</text>
+    <text x="72" y="316" font-size="25" fill="#6B4F4B">e entradas e faz o resumo do mês.</text>
+  </g>
+
+  <!-- gato -->
+  <g transform="translate(940 196)">
+    <!-- sombra -->
+    <ellipse cx="0" cy="146" rx="120" ry="14" fill="#4A2E2A" opacity="0.10"/>
+    <!-- rabo -->
+    <path d="M70 130 C138 138 174 108 166 76 C160 54 140 50 132 64" fill="none" stroke="#E9B07A" stroke-width="20" stroke-linecap="round"/>
+    <!-- corpo -->
+    <path d="M-78 140 C-96 70 -70 22 0 22 C70 22 96 70 78 140 Z" fill="#FBEBD5"/>
+    <ellipse cx="0" cy="98" rx="44" ry="40" fill="#FFF8EE"/>
+    <!-- orelhas -->
+    <path d="M-92 -40 L-96 -128 L-28 -88 Z" fill="#E9B07A"/>
+    <path d="M92 -40 L96 -128 L28 -88 Z" fill="#E9B07A"/>
+    <path d="M-82 -56 L-84 -110 L-44 -86 Z" fill="#F7B7C6"/>
+    <path d="M82 -56 L84 -110 L44 -86 Z" fill="#F7B7C6"/>
+    <!-- cabeça -->
+    <ellipse cx="0" cy="-30" rx="108" ry="84" fill="#FBEBD5"/>
+    <!-- listrinhas de gato malhado -->
+    <g stroke="#E9B07A" stroke-width="7" stroke-linecap="round" fill="none">
+      <path d="M-18 -108 Q-14 -92 -18 -80"/>
+      <path d="M0 -112 Q4 -94 0 -78"/>
+      <path d="M18 -108 Q22 -92 18 -80"/>
+    </g>
+    <!-- bochechas -->
+    <ellipse cx="-62" cy="0" rx="17" ry="11" fill="#F7B7C6" opacity="0.7"/>
+    <ellipse cx="62" cy="0" rx="17" ry="11" fill="#F7B7C6" opacity="0.7"/>
+    <!-- olhos -->
+    <ellipse cx="-38" cy="-30" rx="15" ry="19" fill="#3B2A28"/>
+    <ellipse cx="38" cy="-30" rx="15" ry="19" fill="#3B2A28"/>
+    <circle cx="-33" cy="-37" r="5.5" fill="#FFFFFF"/>
+    <circle cx="43" cy="-37" r="5.5" fill="#FFFFFF"/>
+    <circle cx="-42" cy="-22" r="2.5" fill="#FFFFFF"/>
+    <circle cx="34" cy="-22" r="2.5" fill="#FFFFFF"/>
+    <!-- nariz e boca -->
+    <path d="M-7 -4 L7 -4 L0 4 Z" fill="#E88AA2"/>
+    <path d="M0 4 Q-6 14 -14 10 M0 4 Q6 14 14 10" fill="none" stroke="#3B2A28" stroke-width="3" stroke-linecap="round"/>
+    <!-- bigodes -->
+    <g stroke="#B88B6A" stroke-width="3" stroke-linecap="round">
+      <path d="M-58 -2 L-112 -12"/>
+      <path d="M-58 8 L-114 10"/>
+      <path d="M58 -2 L112 -12"/>
+      <path d="M58 8 L114 10"/>
+    </g>
+    <!-- gravata-borboleta -->
+    <path d="M0 40 L-34 24 L-34 58 Z" fill="#7A6CF0"/>
+    <path d="M0 40 L34 24 L34 58 Z" fill="#7A6CF0"/>
+    <circle cx="0" cy="40" r="8" fill="#5A4BD6"/>
+    <!-- moeda na mão -->
+    <use href="#moeda" transform="translate(0 92) scale(1.45)"/>
+    <!-- patinhas da frente segurando a moeda -->
+    <ellipse cx="-34" cy="100" rx="20" ry="16" fill="#FFF8EE" stroke="#EED9BD" stroke-width="2"/>
+    <ellipse cx="34" cy="100" rx="20" ry="16" fill="#FFF8EE" stroke="#EED9BD" stroke-width="2"/>
+    <!-- patinhas de trás -->
+    <ellipse cx="-52" cy="140" rx="28" ry="13" fill="#FFF8EE" stroke="#EED9BD" stroke-width="2"/>
+    <ellipse cx="52" cy="140" rx="28" ry="13" fill="#FFF8EE" stroke="#EED9BD" stroke-width="2"/>
+  </g>
+</svg>

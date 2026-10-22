@@ -1,5 +1,9 @@
 # Meowth Banqueiro
 
+<p align="center">
+  <img src="docs/banner.svg" alt="Meowth Banqueiro: um gatinho de gravata-borboleta segurando uma moeda" width="100%">
+</p>
+
 Bot de Telegram só seu: você manda os gastos e o dinheiro que entrou do jeito que falaria ("uber 50 saindo do rio", "caiu o salário, 4500") e ele registra com categoria, descrição e observação. Quando você pede, ele faz o resumo com quanto entrou, quanto saiu e o saldo.
 
 ```
