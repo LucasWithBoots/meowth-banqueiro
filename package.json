@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node --env-file-if-exists=.env src/bot.ts",
     "cli": "node --env-file-if-exists=.env src/cli.ts",
-    "check": "tsc"
+    "check": "tsc",
+    "banco:baixar": "bash scripts/baixar-banco.sh"
   },
   "author": "",
   "license": "ISC",

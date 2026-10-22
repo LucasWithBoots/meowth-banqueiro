@@ -69,6 +69,18 @@ O bot roda no Coolify da VM da Oracle, com o `Dockerfile` do projeto e um volume
 
 Faça backup do banco de vez em quando, ou use `/exportar`.
 
+## Olhando o banco de produção
+
+O banco de produção é um arquivo SQLite dentro do volume do Coolify, sem porta para conectar. Para consultar no DBeaver, baixe uma cópia:
+
+```bash
+npm run banco:baixar
+```
+
+A cópia vai para `dados/producao.db`. No DBeaver, abra uma conexão SQLite apontando para esse arquivo. É uma foto do momento: rode de novo para ver gastos novos, e corrija dados pelo bot, não pela cópia.
+
+O script entra na VM por SSH, então vale a mesma regra do resto: a porta 22 só aceita o seu IP atual.
+
 ## Arquivos
 
 - `src/bot.ts` — Telegram: comandos, texto, fotos, permissão.
@@ -76,3 +88,4 @@ Faça backup do banco de vez em quando, ou use `/exportar`.
 - `src/db.ts` — tabela e consultas no SQLite; a lista de categorias fica aqui.
 - `src/formato.ts` — datas, R$ e CSV.
 - `src/cli.ts` — conversa pelo terminal.
+- `scripts/baixar-banco.sh` — baixa a cópia do banco de produção (`npm run banco:baixar`).
