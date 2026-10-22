@@ -1,4 +1,4 @@
-import type { Gasto } from "./db.ts";
+import type { Lancamento } from "./db.ts";
 
 const FUSO = process.env.FUSO_HORARIO ?? "America/Sao_Paulo";
 
@@ -26,20 +26,21 @@ export function dataCurta(data: string): string {
   return `${dia}/${mes}`;
 }
 
-export function linhaGasto(g: Gasto): string {
-  const obs = g.observacao ? ` (${g.observacao})` : "";
-  return `#${g.id} · ${dataCurta(g.data)} · ${reais(g.valor)} · ${g.categoria} · ${g.descricao}${obs}`;
+export function linhaLancamento(l: Lancamento): string {
+  const obs = l.observacao ? ` (${l.observacao})` : "";
+  const valor = l.tipo === "entrada" ? `💰 +${reais(l.valor)}` : reais(l.valor);
+  return `#${l.id} · ${dataCurta(l.data)} · ${valor} · ${l.categoria} · ${l.descricao}${obs}`;
 }
 
-export function csv(gastos: Gasto[]): string {
+export function csv(lancamentos: Lancamento[]): string {
   const campo = (v: string | number | null) => {
     const s = v == null ? "" : String(v);
     return /[",\n;]/.test(s) ? `"${s.replaceAll('"', '""')}"` : s;
   };
-  const linhas = gastos.map((g) =>
-    [g.id, g.data, g.valor.toFixed(2), g.categoria, g.descricao, g.observacao, g.forma_pagamento]
+  const linhas = lancamentos.map((l) =>
+    [l.id, l.data, l.tipo, l.valor.toFixed(2), l.categoria, l.descricao, l.observacao, l.forma_pagamento]
       .map(campo)
       .join(","),
   );
-  return ["id,data,valor,categoria,descricao,observacao,forma_pagamento", ...linhas].join("\n");
+  return ["id,data,tipo,valor,categoria,descricao,observacao,forma_pagamento", ...linhas].join("\n");
 }
